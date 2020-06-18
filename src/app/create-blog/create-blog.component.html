@@ -1,1 +1,22 @@
-<p>create-blog works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]= "editorForm" (ngSubmit)= "onSubmit()">
+            <div class="form-group">
+                <label for="editor"><h3>Editor</h3></label>
+                <quill-editor [styles]="{height: '200px'}" [modules] = "modules" (onEditorChanged) = "onEditorChanged($event)"></quill-editor>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class=" d-flex justify-content-between">
+            <label for="preview"><h3>Preview</h3></label>
+            <button class="btn btn-sm btn-primary pt-1 pb-1" (click) = "onPublish()">Publish</button>
+        </div>
+        <quill-view-html [content]="previewTemplate" format="html" theme="snow"></quill-view-html>
+    </div>
+</div>
+<hr>
+<div>
+    <label for="preview"><h3>Blog</h3></label>
+    <quill-view [content]="blog" format="html" theme="snow"></quill-view>
+</div>
