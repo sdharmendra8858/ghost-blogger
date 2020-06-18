@@ -8,13 +8,19 @@ import { AppComponent } from './app.component';
 import { CreateBlogComponent } from './create-blog/create-blog.component';
 import { BlogListComponent } from './blog-list/blog-list.component';
 import { BlogDisplayComponent } from './blog-display/blog-display.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateBlogComponent,
     BlogListComponent,
-    BlogDisplayComponent
+    BlogDisplayComponent,
+    HeaderComponent,
+    LoginComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
