@@ -1,0 +1,10 @@
+.jumbotron{
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.blog-content{
+    width: 60vw;
+    margin: 0 auto;
+}

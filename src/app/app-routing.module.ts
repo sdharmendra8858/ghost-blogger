@@ -5,11 +5,15 @@ import { BlogListComponent } from './blog-list/blog-list.component';
 import { CreateBlogComponent } from './create-blog/create-blog.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { BlogDisplayComponent } from './blog-display/blog-display.component';
 
 
 const routes: Routes = [
   {
     path: 'home', component: BlogListComponent
+  },
+  {
+    path: 'blog/:id', component: BlogDisplayComponent
   },
   {
     path: 'create-blog', component: CreateBlogComponent
