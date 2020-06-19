@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
+import { BlogService } from '../services/blog.service';
+
 @Component({
   selector: 'app-create-blog',
   templateUrl: './create-blog.component.html',
@@ -9,7 +11,7 @@ import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 })
 export class CreateBlogComponent implements OnInit {
 
-  constructor() { }
+  constructor(private blogService: BlogService) { }
 
   editorForm: FormGroup;
   previewTemplate = '';
@@ -29,8 +31,19 @@ export class CreateBlogComponent implements OnInit {
   }
   
   onPublish(){
-    console.log(this.previewTemplate);
+    // console.log(this.previewTemplate);
     this.blog = this.previewTemplate;
+    this.blogService.postBlog({
+      'author':'haunt',
+      'comments': [{
+        'message': 'braavoo',
+        'author': 'bingo'
+      }],
+      'image': 'https://media.gettyimages.com/photos/rumi-darwaza-against-sky-at-dusk-picture-id601026785?s=612x612',
+      'title': 'Lucknow Diaries',
+      'description': this.previewTemplate
+    })
+
   }
 
   modules = {

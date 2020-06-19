@@ -1,0 +1,8 @@
+<img [src]="blog.image" class="card-img-top" [alt]="blog.title">
+<div class="card-body">
+    <h5 class="card-title">{{blog.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{blog.author}}</h6>
+    <p class="card-text"><quill-view-html [content]="blog.description"></quill-view-html></p>
+    <a class="card-link">Read More</a>
+    <a class="card-link">Another link</a>
+</div>

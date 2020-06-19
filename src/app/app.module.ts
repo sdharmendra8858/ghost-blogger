@@ -11,6 +11,7 @@ import { BlogDisplayComponent } from './blog-display/blog-display.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     BlogDisplayComponent,
     HeaderComponent,
     LoginComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    BlogDetailComponent
   ],
   imports: [
     BrowserModule,

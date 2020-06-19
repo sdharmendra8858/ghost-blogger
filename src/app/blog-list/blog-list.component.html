@@ -1,1 +1,9 @@
-<p>blog-list works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-5" *ngFor="let item of lists">
+            <div class="card">
+                <app-blog-detail [blog] = "item"></app-blog-detail>
+            </div>
+        </div>
+    </div>
+</div>
