@@ -1,0 +1,150 @@
+<div class="container">
+    <ul class="nav nav-tabs mb-5">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': loginTrue}" style="cursor: pointer;" (click)= "loginStatus()">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': !loginTrue}" style="cursor: pointer;" (click)= "loginStatus()">Register</a>
+        </li>
+    </ul>
+    
+    <div *ngIf="loginTrue" class="col-lg-4 col-md-6 offset-lg-4 offset-md-3">
+        <form novalidate #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+            <!-- <div class="alert alert-danger">Email or Password is incorrect.</div> -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    class="form-control" 
+                    id="email" 
+                    [(ngModel)] = "login.email"
+                    #email="ngModel" 
+                    type="email" 
+                    name="email" 
+                    required
+                    email
+                />
+                <span class="form-text text-danger" *ngIf="email.touched && email.errors?.required">{{errorMsg.email.required}}</span>
+                <span class="form-text text-danger" *ngIf="email.touched && email.errors?.email">{{errorMsg.email.email}}</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    class="form-control" 
+                    id="password" 
+                    ngModel 
+                    type="password" 
+                    name="password"
+                    required
+                    minlength="6"
+                    [(ngModel)] = login.password
+                    #password="ngModel"
+                />
+                <span class="form-text text-danger" *ngIf="password.touched && password.errors?.required">{{errorMsg.password.required}}</span>
+                <span class="form-text text-danger" *ngIf="password.touched && password.errors?.minlength">{{errorMsg.password.minlength}}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <a>Forgot Password ?</a>
+                <button class="btn btn-primary pl-4 pr-4" type="submit" [disabled]="!loginForm.valid">LogIn</button>
+            </div>
+        </form>
+    </div>
+
+    <!-----register section------->
+    
+    <div *ngIf="!loginTrue" class="col-lg-6 col-md-8 offset-lg-3 offset-md-2">
+        <form novalidate #registerForm="ngForm" (ngSubmit) = "onRegister(registerForm)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input 
+                    type="text" 
+                    id="name"
+                    class="form-control"
+                    name="name"
+                    required
+                    [(ngModel)] = register.name
+                    #name = 'ngModel'
+                    minlength="3"
+                    maxlength="20"
+                    >
+                    <span class="form-text text-danger" *ngIf="name.touched && name.errors?.required">{{errorMsg.name.required}}</span>
+                    <span class="form-text text-danger" *ngIf="name.touched && name.errors?.minlength">{{errorMsg.name.minlength}}</span>
+                    <span class="form-text text-danger" *ngIf="name.touched && name.errors?.maxlength">{{errorMsg.name.maxlength}}</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email"
+                    class="form-control"
+                    name="email"
+                    [(ngModel)] = register.email
+                    #email = 'ngModel'
+                    email
+                    required
+                    >
+                    <span class="form-text text-danger" *ngIf="email.touched && email.errors?.required">{{errorMsg.email.required}}</span>
+                    <span class="form-text text-danger" *ngIf="email.touched && email.errors?.email">{{errorMsg.email.email}}</span>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender: </label>
+                <br>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                        type="radio" 
+                        id="male" 
+                        name="gender"
+                        value="male"
+                        ngModel 
+                        [(ngModel)] = register.gender
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="male">Male</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input 
+                        type="radio" 
+                        id="female" 
+                        name="gender" 
+                        value="female"
+                        [(ngModel)] = register.gender
+                        ngModel
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="female">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateofBirth">Date of Birth</label>
+                <input 
+                    type="date" 
+                    id="dateofBirth"
+                    name="dateofBirth"
+                    [(ngModel)] = register.dob
+                    #dateofBirth='ngModel'
+                    class="form-control"
+                    required>
+                    <span class="form-text text-danger" *ngIf="dateofBirth.touched && dateofBirth.errors?.required">{{errorMsg.dateofBirth.required}}</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <input 
+                        [type]="hidePassword ? 'password' : 'text'" 
+                        class="form-control"
+                        data-toggle="password"
+                        required
+                        name="password"
+                        minlength="6"
+                        [(ngModel)]=register.password
+                        #password = 'ngModel'>
+                        <div class="input-group-append">
+                            <div class="input-group-text" style="cursor: pointer;" (click) = "onHidePassword()"><i [ngClass]="hidePassword? 'fa fa-eye': 'fa fa-eye-slash text-primary'"></i></div>
+                        </div>
+                    </div>
+                    <span class="form-text text-danger" *ngIf="password.touched && password.errors?.required">{{errorMsg.password.required}}</span>
+                    <span class="form-text text-danger" *ngIf="password.touched && password.errors?.minlength">{{errorMsg.password.minlength}}</span>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit" [disabled] = "!registerForm.valid">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
