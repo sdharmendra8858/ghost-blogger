@@ -10,7 +10,7 @@ const comment = new mongoose.Schema({
         type: Number,
         max: 5,
         default: 5,
-        min: 0,
+        min: 1,
         required: true
     },
     message: {
