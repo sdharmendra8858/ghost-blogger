@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Comment = mongoose.model('Comment',{
+const comment = new mongoose.Schema({
     author: {
         type: String,
         trim: true,
@@ -19,4 +19,25 @@ const Comment = mongoose.model('Comment',{
     }
 });
 
-module.exports = Comment;
+// const Comment = mongoose.model('Comment',{
+//     author: {
+//         type: String,
+//         trim: true,
+//         required:true
+//     },
+//     rating: {
+//         type: Number,
+//         max: 5,
+//         default: 5,
+//         min: 0,
+//         required: true
+//     },
+//     message: {
+//         type: String,
+//         trim: true
+//     }
+// });
+
+// const Comment = mongoose.model('Commment', comment);
+
+module.exports = comment;
