@@ -2,9 +2,8 @@ const express = require('express');
 require('./db/mongoose');
 const User = require('./models/user.model');
 const Blog = require('./models/blog.model');
-const { Mongoose } = require('mongoose');
-const { __await } = require('tslib');
-const { update } = require('./models/blog.model');
+const { findById } = require('./models/blog.model');
+// const { Mongoose } = require('mongoose');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -74,6 +73,21 @@ app.patch('/users/:id', async(req, res) => {
     }
 })
 
+app.delete('/users/:id', async(req, res) => {
+    try{
+        const user = await User.findByIdAndDelete(req.params.id);
+
+        if(!user){
+            return res.status(404).send({"error": "User not found"});
+        }
+
+        res.send(user);
+    }
+    catch(e){
+        res.status(500).send();
+    }
+})
+
 app.post('/blogs', async(req, res) => {
     const blog = new Blog(req.body);
 
@@ -135,6 +149,21 @@ app.patch('/blogs/:blogId', async(req, res) => {
 
 })
 
+app.delete('/blogs/:id', async(req, res) => {
+    try{
+        const blog = await Blog.findByIdAndDelete(req.params.id);
+
+        if(!blog){
+            return res.status(404).send({"error": "blog not found!"});
+        }
+
+        res.send(blog);
+    }
+    catch(e){
+
+    }
+})
+
 app.post('/blogs/:blogId/comments', async(req, res) => {
     const _id = req.params.blogId;
     try{
@@ -162,6 +191,31 @@ app.get('/blogs/:blogId/comments', async(req, res) => {
         }
 
         res.send(blog.comments);
+    }
+    catch(e){
+        res.status(500).send();
+    }
+})
+
+app.delete('/blogs/:blogId/comments', async(req, res) => {
+    const _id = req.params.blogId;
+
+    try{
+        const blog = await Blog.findById(_id);
+
+        if(!blog){
+            return res.status(404).send({"error": "blog not found!"});
+        }
+
+        if(!blog.comments.length){
+            return res.status(400).send({"error": "nothing to delete!"});
+        }
+
+        blog.comments = [];
+
+        await blog.save();
+
+        res.send(blog);
     }
     catch(e){
         res.status(500).send();
@@ -237,6 +291,35 @@ app.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
     catch(e){
         res.status(500).send();
     }
+})
+
+app.delete('/blogs/:blogId/comments/:commentId', async(req, res) => {
+    const blogId = req.params.blogId;
+    const commentId = req.params.commentId;
+
+    try{
+        const blog = await Blog.findById(blogId);
+
+        if(!blog){
+            return res.status(404).send({"error": "blog not found!"});
+        }
+
+        const CommentIndex = blog.comments.findIndex(comment => comment.id === commentId);
+
+        if(CommentIndex === -1){
+            return res.status(404).send({"error": "comment not found"});
+        }
+        
+        blog.comments.splice(CommentIndex, 1);
+
+        await blog.save();
+
+        res.send(blog);
+    }
+    catch(e){
+        res.status(500).send();
+    }
+
 })
 
 app.listen(port, () => {
