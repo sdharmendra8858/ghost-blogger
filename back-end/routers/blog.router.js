@@ -49,11 +49,14 @@ router.patch('/blogs/:blogId', async(req, res) => {
     }
 
     try{
-        const blog = await Blog.findByIdAndUpdate(req.params.blogId, req.body, { new: true, runValidators: true });
+        const blog = await Blog.findById(req.params.blogId);
     
         if(!blog){
             return res.send(400).end("Blog not found");
         }
+
+        updates.forEach((update) => blog[update] = req.body[update]);
+        await blog.save();
     
         res.send(blog);
     }
@@ -188,14 +191,16 @@ router.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
 
         const comment = blog.comments.filter((comment) => comment.id === commentId)[0];
 
-        if(req.body.message){
-            if(typeof(req.body.message)!== "string")
-                return res.status(400).end({"error": "invalid data!"});
-            comment.message = req.body.message;
-        }
-        if(req.body.rating){
-            comment.rating = req.body.rating;
-        }
+        updates.forEach((update) => comment[update] = req.body[update]);
+
+        // if(req.body.message){
+        //     if(typeof(req.body.message)!== "string")
+        //         return res.status(400).end({"error": "invalid data!"});
+        //     comment.message = req.body.message;
+        // }
+        // if(req.body.rating){
+        //     comment.rating = req.body.rating;
+        // }
 
         await blog.save();
 
