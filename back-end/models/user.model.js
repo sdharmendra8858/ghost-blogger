@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const router = require('../routers/user.router');
 
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        unique: true,
         lowercase: true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -42,8 +44,52 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Age cannot be a negative number');
             }
         }
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
+
+userSchema.methods.toJSON = function(){
+    const user = this;
+    const userObject = user.toObject();
+
+    delete userObject.password;
+    delete userObject.tokens;
+
+    return userObject;
+}
+
+userSchema.methods.generateAuthToken = async function(){
+    const user = this;
+    const token = jwt.sign({_id: user._id.toString()}, 'S7474784v@');
+
+    user.tokens = user.tokens.concat({token});
+
+    await user.save();
+
+    return token;
+
+}
+
+userSchema.statics.findByCredential = async (email, password) => {
+    const user = await User.findOne({ email });
+
+    if(!user){
+        throw new Error('Unable to Login!');
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if(!isMatch){
+        throw new Error('Unable to Login!');
+    }
+
+    return user;
+}
 
 userSchema.pre('save', async function(next){
 
