@@ -36,13 +36,11 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    age: {
-        type: Number,
-        validate(value){
-            if(value < 0){
-                throw new Error('Age cannot be a negative number');
-            }
-        }
+    dateofBirth: {
+        type: Date,
+        required: true,
+        min: '1980-01-01',
+        max: Date.now()
     },
     tokens: [{
         token: {
@@ -50,6 +48,9 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+},
+{
+    timestamps: true
 });
 
 userSchema.virtual('blogs', {

@@ -19,9 +19,23 @@ router.post('/blogs', auth, async(req, res) => {
     }
 });
 
+//localhost:3000/blogs?limit=2&skip=2&sortBy=createdAt:desc
+
+
 router.get('/blogs', async(req, res) => {
+
+    const sort = {};
+    
+    if(req.query.sortBy){
+        const part = req.query.sortBy.split(':');
+        sort[part[0]] = part[1] === "desc" ? -1 : 1;
+    }
+
     try{
         const blogs = await Blog.find({})
+                        .limit(parseInt (req.query.limit))
+                        .skip(parseInt(req.query.skip))
+                        .sort(sort)
                         .populate('author')
                         .populate('comments.author');
         res.send(blogs);

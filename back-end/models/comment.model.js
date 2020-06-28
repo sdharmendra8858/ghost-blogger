@@ -17,6 +17,9 @@ const comment = new mongoose.Schema({
         type: String,
         trim: true
     }
+},
+{
+    timestamps: true
 });
 
 module.exports = comment;
