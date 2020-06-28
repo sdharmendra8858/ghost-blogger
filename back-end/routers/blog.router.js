@@ -1,11 +1,16 @@
 const express = require('express');
+const auth = require('../middleware/auth.middleware');
 const Blog = require('../models/blog.model');
 const router = new express.Router();
 
-router.post('/blogs', async(req, res) => {
-    const blog = new Blog(req.body);
+router.post('/blogs', auth, async(req, res) => {
+    const blog = new Blog({
+        ...req.body,
+        author: req.user._id
+    })
 
     try{
+        await blog.populate('author').execPopulate();
         await blog.save();
         res.status(201).send(blog);
     }
@@ -16,7 +21,9 @@ router.post('/blogs', async(req, res) => {
 
 router.get('/blogs', async(req, res) => {
     try{
-        const blogs = await Blog.find({});
+        const blogs = await Blog.find({})
+                        .populate('author')
+                        .populate('comments.author');
         res.send(blogs);
     }
     catch(e){
@@ -28,6 +35,8 @@ router.get('/blogs/:blogId', async(req, res) => {
     const _id = req.params.blogId;
     try{
         const blog = await Blog.findById(_id)
+                        .populate('author')
+                        .populate('comments.author');
         if(!blog){
             return res.status(404).send();
         }
@@ -39,7 +48,7 @@ router.get('/blogs/:blogId', async(req, res) => {
     }
 });
 
-router.patch('/blogs/:blogId', async(req, res) => {
+router.patch('/blogs/:blogId', auth, async(req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ["title", "blog"];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -49,10 +58,12 @@ router.patch('/blogs/:blogId', async(req, res) => {
     }
 
     try{
-        const blog = await Blog.findById(req.params.blogId);
+        const blog = await Blog.findOne({_id: req.params.blogId, author: req.user._id})
+                        .populate('author')
+                        .populate('comments.author');
     
         if(!blog){
-            return res.send(400).end("Blog not found");
+            return res.send(404).end("Blog not found");
         }
 
         updates.forEach((update) => blog[update] = req.body[update]);
@@ -66,9 +77,11 @@ router.patch('/blogs/:blogId', async(req, res) => {
 
 })
 
-router.delete('/blogs/:id', async(req, res) => {
+router.delete('/blogs/:blogId', auth, async(req, res) => {
     try{
-        const blog = await Blog.findByIdAndDelete(req.params.id);
+        const blog = await Blog.findOneAndDelete({_id: req.params.blogId, author: req.user._id})
+                        .populate('author')
+                        .populate('comments.author');
 
         if(!blog){
             return res.status(404).send({"error": "blog not found!"});
@@ -77,11 +90,17 @@ router.delete('/blogs/:id', async(req, res) => {
         res.send(blog);
     }
     catch(e){
-
+        res.status(500).send();
     }
 })
 
-router.post('/blogs/:blogId/comments', async(req, res) => {
+//////////////////////////
+
+//  blog comments
+
+//////////////////////////
+
+router.post('/blogs/:blogId/comments', auth, async(req, res) => {
     const _id = req.params.blogId;
     try{
         const blog = await Blog.findById(_id);
@@ -90,7 +109,8 @@ router.post('/blogs/:blogId/comments', async(req, res) => {
             return res.status(404).send();
         }
 
-        blog.comments.push(req.body);
+        blog.comments.push({...req.body, author: req.user._id});
+        await blog.populate('author').populate('comments.author').execPopulate();
         await blog.save();
         res.status(201).send(blog);
     }
@@ -102,7 +122,8 @@ router.post('/blogs/:blogId/comments', async(req, res) => {
 router.get('/blogs/:blogId/comments', async(req, res) => {
     const _id = req.params.blogId;
     try{
-        const blog = await Blog.findById(_id);
+        const blog = await Blog.findById(_id)
+                        .populate('comments.author');
         if(!blog){
             return res.status(404).end('Blog not found!');
         }
@@ -114,11 +135,12 @@ router.get('/blogs/:blogId/comments', async(req, res) => {
     }
 })
 
-router.delete('/blogs/:blogId/comments', async(req, res) => {
+router.delete('/blogs/:blogId/comments', auth, async(req, res) => {
     const _id = req.params.blogId;
 
     try{
-        const blog = await Blog.findById(_id);
+        const blog = await Blog.findOne({_id, author: req.user._id})
+                        .populate('author');
 
         if(!blog){
             return res.status(404).send({"error": "blog not found!"});
@@ -139,7 +161,13 @@ router.delete('/blogs/:blogId/comments', async(req, res) => {
     }
 })
 
-router.post('/blogs/:blogId/comments/:commentId', (req, res) => {
+//////////////////////////
+
+// single comment
+
+//////////////////////////
+
+router.post('/blogs/:blogId/comments/:commentId', auth, (req, res) => {
     res.status(403).end('Post operation is not supported on /blogs/' + req.params.blogId + '/comments/' + req.params.commentId);
 })
 
@@ -148,7 +176,8 @@ router.get('/blogs/:blogId/comments/:commentId', async(req, res) => {
     const commentId = req.params.commentId;
 
     try{
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId)
+                        .populate('comments.author');
         if(!blog){
             return res.status(404).end('Blog not found');
         }
@@ -167,7 +196,7 @@ router.get('/blogs/:blogId/comments/:commentId', async(req, res) => {
     }
 })
 
-router.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
+router.patch('/blogs/:blogId/comments/:commentId', auth, async(req, res) => {
     const blogId = req.params.blogId;
     const commentId = req.params.commentId;
 
@@ -183,7 +212,9 @@ router.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
     }
 
     try{
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId)
+                    .populate('author')
+                    .populate('comments.author');
         
         if(!blog){
             return res.status(404).end('Blog not Found!');
@@ -191,16 +222,16 @@ router.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
 
         const comment = blog.comments.filter((comment) => comment.id === commentId)[0];
 
-        updates.forEach((update) => comment[update] = req.body[update]);
+        if(!comment){
+            return res.status(404).end('Comment not found!');
+        }
 
-        // if(req.body.message){
-        //     if(typeof(req.body.message)!== "string")
-        //         return res.status(400).end({"error": "invalid data!"});
-        //     comment.message = req.body.message;
-        // }
-        // if(req.body.rating){
-        //     comment.rating = req.body.rating;
-        // }
+        if(JSON.stringify(comment.author) !== JSON.stringify(req.user._id)){
+            
+            return res.status(401).send();
+        }
+
+        updates.forEach((update) => comment[update] = req.body[update]);
 
         await blog.save();
 
@@ -212,25 +243,30 @@ router.patch('/blogs/:blogId/comments/:commentId', async(req, res) => {
     }
 })
 
-router.delete('/blogs/:blogId/comments/:commentId', async(req, res) => {
+router.delete('/blogs/:blogId/comments/:commentId', auth, async(req, res) => {
     const blogId = req.params.blogId;
     const commentId = req.params.commentId;
 
     try{
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId)
+                    .populate('author')
+                    .populate('comments.author');
 
         if(!blog){
             return res.status(404).send({"error": "blog not found!"});
         }
 
-        const CommentIndex = blog.comments.findIndex(comment => comment.id === commentId);
+        const comment = blog.comments.id(commentId);
 
-        if(CommentIndex === -1){
-            return res.status(404).send({"error": "comment not found"});
+        if(!comment){
+            return res.status(404).send({"error": "comment not found!"});
+        }
+
+        if(JSON.stringify(comment.author) !== JSON.stringify(req.user._id)){
+            return res.status(401).send();
         }
         
-        blog.comments.splice(CommentIndex, 1);
-
+        comment.remove();
         await blog.save();
 
         res.send(blog);

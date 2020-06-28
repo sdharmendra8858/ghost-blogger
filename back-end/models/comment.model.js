@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const comment = new mongoose.Schema({
     author: {
-        type: String,
-        trim: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required:true
     },
     rating: {
