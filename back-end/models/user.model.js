@@ -42,6 +42,9 @@ const userSchema = new mongoose.Schema({
         min: '1980-01-01',
         max: Date.now()
     },
+    avatar: {
+        type: Buffer
+    },
     tokens: [{
         token: {
             type: String,
@@ -65,6 +68,7 @@ userSchema.methods.toJSON = function(){
 
     delete userObject.password;
     delete userObject.tokens;
+    delete userObject.avatar;
 
     return userObject;
 }
