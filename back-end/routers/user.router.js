@@ -4,7 +4,7 @@ const sharp = require('sharp');
 
 const auth = require('../middleware/auth.middleware');
 const User = require('../models/user.model');
-const { welcomeMail, sendRemoveMail } = require('../email/email');
+const { sendWelcomeMail, sendRemoveMail } = require('../email/email');
 
 const router = new express.Router();
 
@@ -13,7 +13,7 @@ router.post('/users', async(req, res) => {
 
     try{
         const token = await user.generateAuthToken();
-        welcomeMail(req.body.email, req.body.name);
+        sendWelcomeMail(req.body.email, req.body.name);
         await user.save();
         res.status(201).send({ user, token });
     }
