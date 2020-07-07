@@ -1,0 +1,38 @@
+input[type ="file"]{
+    display: none;
+}
+
+label[for="hero_image"]{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid teal;
+    border-radius: 2px;
+    color: teal;
+    transition: 0.3s all;
+}
+
+label:hover[for="hero_image"]{
+    color: white;
+    background-color: teal;
+}
+
+#upload_hero{
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero_image_preview{
+    max-width: 500px;
+}
+
+.direction-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+[mat-button]{
+    background-color: darkgrey;
+    color: white;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+}

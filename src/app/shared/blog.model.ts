@@ -1,5 +1,3 @@
-import { User } from './user.model';
-
 export class Comment{
   message: string;
   author: string;
@@ -10,5 +8,6 @@ export class Blog {
   image: string;
   description: string;
   author: string;
+  tags: string[];
   comments: Comment[];
 }

@@ -20,7 +20,8 @@ export class BlogService {
           'message': 'Good',
           'author': 'ghost101'
         }
-      ]
+      ],
+      tags: []
     },{
       'title': 'first blog',
       'author': 'ghost721',
@@ -31,7 +32,8 @@ export class BlogService {
           'message': 'Good',
           'author': 'ghost101'
         }
-      ]
+      ],
+      tags: []
     },{
       'title': 'first blog',
       'author': 'ghost7210',
@@ -52,7 +54,8 @@ export class BlogService {
           'message': 'Good',
           'author': 'ghost101'
         }
-      ]
+      ],
+      tags: []
     },
   ]
 

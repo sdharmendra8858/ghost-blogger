@@ -1,22 +1,112 @@
-<div class="row">
-    <div class="col-md-6">
-        <form [formGroup]= "editorForm" (ngSubmit)= "onSubmit()">
-            <div class="form-group">
-                <label for="editor"><h3>Editor</h3></label>
-                <quill-editor [styles]="{height: '200px'}" [modules] = "modules" (onEditorChanged) = "onEditorChanged($event)"></quill-editor>
+<mat-horizontal-stepper labelPosition="end">
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup] = "firstFormGroup">
+            <ng-template matStepLabel>Basic intro of Blog</ng-template>
+            <div class="direction-buttons">
+                <button class="d-block mr-0 ml-auto" mat-button matStepperNext type="submit" (click) = "onFileSubmit()">Next</button>
+            </div>
+            <label for="title">Title</label>
+            <input 
+                class="form-control"
+                name="title"
+                formControlName="title"
+                type="text"
+                required>
+
+            <br>
+            Upload Blog image
+            <div id="upload_hero">
+                <div>
+                    <label for="hero_image">Hero Image</label>
+                    <input 
+                        type="file" 
+                        name="hero_image"
+                        formControlName="hero_image"
+                        id="hero_image" 
+                        (change)="onFileSelected($event)">
+                    {{hero_image_file_name}}
+                    <div class="hero_image_preview">
+                        <img [src]="hero_image_url"  [alt]="hero_image_file_name" class="img-responsive">
+                    </div>
+                </div>
             </div>
         </form>
-    </div>
-    <div class="col-md-6">
-        <div class=" d-flex justify-content-between">
-            <label for="preview"><h3>Preview</h3></label>
-            <button class="btn btn-sm btn-primary pt-1 pb-1" (click) = "onPublish()">Publish</button>
-        </div>
-        <quill-view-html [content]="previewTemplate" format="html" theme="snow"></quill-view-html>
-    </div>
-</div>
-<hr>
-<div>
-    <label for="preview"><h3>Blog</h3></label>
-    <quill-view [content]="blog" format="html" theme="snow"></quill-view>
-</div>
+    </mat-step>
+    <mat-step [stepControl]="editorForm">
+        <form [formGroup]="editorForm">
+            <ng-template matStepLabel>Write your blog</ng-template>
+            <div class="direction-buttons">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editor"><h3>Editor</h3></label>
+                        <quill-editor [styles]="{height: '200px'}" [modules] = "modules" (onEditorChanged) = "onEditorChanged($event)"></quill-editor>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class=" d-flex justify-content-between">
+                        <label for="preview"><h3>Preview</h3></label>
+                        <button class="btn btn-sm btn-primary pt-1 pb-1" (click) = "onPublish()">Publish</button>
+                    </div>
+                    <quill-view-html [content]="previewTemplate" format="html" theme="snow"></quill-view-html>
+                </div>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="tagsFormGroup">
+        <form [formGroup]="tagsFormGroup">
+            <ng-template matStepLabel>Write tags</ng-template>
+            <div class="direction-buttons">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+            <label for="tags">Add Tags for your Blog:</label>
+            <div class="chips">
+                <!-- <div class="chips-list"> -->
+                        <mat-chip-list #tagList width="200px">
+                            <mat-chip
+                                *ngFor="let tag of tags"
+                                [selectable]="selectable"
+                                [removable]="removable"
+                                (removed)="remove(tag)">
+                                {{tag}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>
+                        <input
+                            placeholder="Add tags ..."
+                            class="form-control mt-5 w-50"
+                            [matChipInputFor]="tagList"
+                            formControlName="tagsCtrl"
+                            [matChipInputSeparatorKeyCodes] = "separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)">
+                <!-- </div> -->
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup">
+        <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel>Get Preview</ng-template>
+            <div class="direction-buttons">
+                <button mat-button matStepperPrevious>Back</button>
+            </div>
+
+            <!-- <div class="preview">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                    <h1 class="display-4">{{}}</h1>
+                    <p class="lead">{{blog.author}}</p>
+                    </div>
+                </div>
+                <div class="container blog-content">
+                    <quill-view-html [content]= "blog.description"></quill-view-html>
+                </div>
+            </div> -->
+        </form>
+    </mat-step>
+
+</mat-horizontal-stepper>
+  
