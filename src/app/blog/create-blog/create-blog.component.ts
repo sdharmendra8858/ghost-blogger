@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatChipInputEvent } from '@angular/material/chips';
 
-import { BlogService } from '../services/blog.service';
-import { Blog } from '../shared/blog.model';
+import { BlogService } from 'src/app/services/blog.service';
+import { Blog } from 'src/app/shared/blog.model';
 
 @Component({
   selector: 'app-create-blog',

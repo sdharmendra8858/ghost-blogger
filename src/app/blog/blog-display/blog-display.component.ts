@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Blog } from '../shared/blog.model';
-import { BlogService } from '../services/blog.service';
+import { BlogService } from 'src/app/services/blog.service';
+import { Blog } from 'src/app/shared/blog.model';
 
 @Component({
   selector: 'app-blog-display',

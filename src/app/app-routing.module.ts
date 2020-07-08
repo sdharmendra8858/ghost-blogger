@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BlogListComponent } from './blog-list/blog-list.component';
-import { CreateBlogComponent } from './create-blog/create-blog.component';
 import { AuthComponent } from './auth/auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { BlogDisplayComponent } from './blog-display/blog-display.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogDisplayComponent } from './blog/blog-display/blog-display.component';
+import { CreateBlogComponent } from './blog/create-blog/create-blog.component';
 
 
 const routes: Routes = [

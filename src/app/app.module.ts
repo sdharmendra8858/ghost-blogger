@@ -5,13 +5,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateBlogComponent } from './create-blog/create-blog.component';
-import { BlogListComponent } from './blog-list/blog-list.component';
-import { BlogDisplayComponent } from './blog-display/blog-display.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { CreateBlogComponent } from './blog/create-blog/create-blog.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogDisplayComponent } from './blog/blog-display/blog-display.component';
+import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
+import { CommentsComponent } from './blog/comments/comments.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -31,7 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     HeaderComponent,
     AuthComponent,
     ErrorPageComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
