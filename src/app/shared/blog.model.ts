@@ -1,13 +1,13 @@
 export class Comment{
-  message: string;
-  author: string;
+  message: String;
+  author: String;
 }
 
 export class Blog {
-  title: string;
-  image: string;
-  description: string;
-  author: string;
-  tags: string[];
+  title: String;
+  image: String;
+  description: String;
+  author: String;
+  tags: String[];
   comments: Comment[];
 }

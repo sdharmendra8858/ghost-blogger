@@ -3,7 +3,7 @@
         <form [formGroup] = "firstFormGroup">
             <ng-template matStepLabel>Basic intro of Blog</ng-template>
             <div class="direction-buttons">
-                <button class="d-block mr-0 ml-auto" mat-button matStepperNext type="submit" (click) = "onFileSubmit()">Next</button>
+                <button class="d-block mr-0 ml-auto" mat-button matStepperNext type="submit" (click) = "onFormSubmit()">Next</button>
             </div>
             <label for="title">Title</label>
             <input 
@@ -37,13 +37,13 @@
             <ng-template matStepLabel>Write your blog</ng-template>
             <div class="direction-buttons">
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperNext type="submit" (click) = "onFormSubmit()">Next</button>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="editor"><h3>Editor</h3></label>
-                        <quill-editor [styles]="{height: '200px'}" [modules] = "modules" (onEditorChanged) = "onEditorChanged($event)"></quill-editor>
+                        <quill-editor formControlName="editor" [styles]="{height: '200px'}" [modules] = "modules" (onEditorChanged) = "onEditorChanged($event)"></quill-editor>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -61,29 +61,27 @@
             <ng-template matStepLabel>Write tags</ng-template>
             <div class="direction-buttons">
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperNext type="submit" (click) = "onFormSubmit()">Next</button>
             </div>
-            <label for="tags">Add Tags for your Blog:</label>
-            <div class="chips">
-                <!-- <div class="chips-list"> -->
-                        <mat-chip-list #tagList width="200px">
-                            <mat-chip
-                                *ngFor="let tag of tags"
-                                [selectable]="selectable"
-                                [removable]="removable"
-                                (removed)="remove(tag)">
-                                {{tag}}
-                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                            </mat-chip>
-                        </mat-chip-list>
-                        <input
-                            placeholder="Add tags ..."
-                            class="form-control mt-5 w-50"
-                            [matChipInputFor]="tagList"
-                            formControlName="tagsCtrl"
-                            [matChipInputSeparatorKeyCodes] = "separatorKeysCodes"
-                            (matChipInputTokenEnd)="add($event)">
-                <!-- </div> -->
+            <div class="tags">
+                <label for="tags">Add Tags for your Blog:</label>
+                    <mat-chip-list #tagList>
+                        <mat-chip
+                            *ngFor="let tag of tags"
+                            [selectable]="selectable"
+                            [removable]="removable"
+                            (removed)="remove(tag)">
+                            {{tag}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                    <input
+                        placeholder="Add tags ..."
+                        formControlName="tagsCtrl"
+                        class="form-control w-100 mt-3"
+                        [matChipInputFor]="tagList"
+                        [matChipInputSeparatorKeyCodes] = "separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
             </div>
         </form>
     </mat-step>
@@ -92,19 +90,19 @@
             <ng-template matStepLabel>Get Preview</ng-template>
             <div class="direction-buttons">
                 <button mat-button matStepperPrevious>Back</button>
+                <button mat-button class="save_blog" type="submit" (click) = "onSaveBlog()">Save Blog</button>
             </div>
 
-            <!-- <div class="preview">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                    <h1 class="display-4">{{}}</h1>
-                    <p class="lead">{{blog.author}}</p>
-                    </div>
+            <div class="jumbotron jumbotron-fluid"
+                style="background-image: url({{blogTemplate.image}})">
+                <div class="container">
+                <h1 class="display-4">{{blogTemplate.title}}</h1>
+                <p class="lead">Author</p>
                 </div>
-                <div class="container blog-content">
-                    <quill-view-html [content]= "blog.description"></quill-view-html>
-                </div>
-            </div> -->
+            </div>
+            <div class="container blog-content">
+                <quill-view-html [content]= "blogTemplate.description"></quill-view-html>
+            </div>
         </form>
     </mat-step>
 

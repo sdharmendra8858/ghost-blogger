@@ -36,3 +36,20 @@ label:hover[for="hero_image"]{
     margin-bottom: 5rem;
     margin-top: 2rem;
 }
+
+.tags{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.save_blog{
+    background-color: #1e90ff;
+    color: white;
+    transition: all 0.3 ease-in-out;
+}
+
+.save_blog:hover{
+    transform: scale(1.03);
+    background-color: #3b9dff;
+    box-shadow: 5px 5px 20px #ccc;
+}

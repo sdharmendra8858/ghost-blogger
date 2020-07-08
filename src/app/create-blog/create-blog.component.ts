@@ -26,7 +26,7 @@ export class CreateBlogComponent implements OnInit {
     'author': '',
     'comments': [],
     'description': '',
-    'image': '',
+    'image': 'https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500',
     'tags': []
   };
 
@@ -37,7 +37,7 @@ export class CreateBlogComponent implements OnInit {
   ////////   section one title
   hero_image_file_name = "";
   hero_image_file : File = null;
-  hero_image_url: String = "";
+  hero_image_url: String = '';
   title: String;
 
   //////// section three tags
@@ -57,7 +57,7 @@ export class CreateBlogComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       title: ['', Validators.required],
-      hero_image: ['']
+      hero_image: ['', Validators.required]
     });
     this.editorForm = this._formBuilder.group({
       editor: ['', Validators.required]
@@ -68,58 +68,59 @@ export class CreateBlogComponent implements OnInit {
     this.fourthFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required]
     });
+    
   }
+
+
+onFormSubmit(){
+  this.blogTemplate.title = this.firstFormGroup.value.title;
+  this.blogTemplate.image = this.hero_image_url;
+  this.blogTemplate.description = this.previewTemplate;
+  this.blogTemplate.tags = this.tags;
+
+
+  console.log(this.blogTemplate);
+  
+}
 
 
 /////////////first page title ////////////////
 
-  onFileSubmit(){
-    console.log(this.hero_image_file);
-    
-  }
 
-  onTitleSubmit(titleForm: NgForm){
-    console.log(titleForm);
-    
+onFileSelected(event){
+  if(event.target.files){
+    this.hero_image_file = event.target.files[0];
+    this.hero_image_file_name = this.hero_image_file.name;
+    var reader = new FileReader();
+    reader.readAsDataURL(this.hero_image_file);
+    reader.onload = (e: any) => {
+      this.hero_image_url = e.target.result;
+    }
   }
+}
   
   onPublish(){
-    console.log(this.previewTemplate);
+    // console.log(this.previewTemplate);
     this.blog = this.previewTemplate;
-    this.blogService.postBlog({
-      'author':'haunt',
-      'comments': [{
-        'message': 'braavoo',
-        'author': 'bingo'
-      }],
-      'image': 'https://media.gettyimages.com/photos/rumi-darwaza-against-sky-at-dusk-picture-id601026785?s=612x612',
-      'title': 'Lucknow Diaries',
-      'tags': ["yoo"],
-      'description': this.previewTemplate
-    })
+    this.editorForm.value.editor = this.previewTemplate;
 
   }
-
-
-
 
 ////////////////////third page title/////////////////////////
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
-    const value = event.value;
+    const value = event.value.trim();
 
     // Add our fruit
-    if ((value.trim() && this.tags.indexOf(value.trim()) === -1)) {
-      this.tags.push(value.trim());
+    if ((value && this.tags.indexOf(value) === -1)) {
+      this.tags.push(value);
     }
 
     // Reset the input value
     if (input) {
       input.value = '';
     }
-
-    this.tagsFormGroup.setValue(null);
   }
 
   remove(tag: string): void {
@@ -134,20 +135,6 @@ export class CreateBlogComponent implements OnInit {
   
   onEditorChanged(event: EditorChangeContent| EditorChangeSelection){
     this.previewTemplate = event.editor.root.innerHTML;
-  }
-
-  onFileSelected(event){
-    if(event.target.files){
-      this.hero_image_file = event.target.files[0];
-      this.hero_image_file_name = this.hero_image_file.name;
-      var reader = new FileReader();
-      reader.readAsDataURL(this.hero_image_file);
-      reader.onload = (e: any) => {
-        this.hero_image_url = e.target.result;
-      }
-    }
-    
-    
   }
 
   modules = {
@@ -174,4 +161,11 @@ export class CreateBlogComponent implements OnInit {
     ]
   };
 
+
+  //////// preview page content //////////
+  
+  onSaveBlog(){
+    this.blogService.postBlog(this.blogTemplate);
+  }
 }
+
