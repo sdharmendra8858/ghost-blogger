@@ -1,7 +1,8 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill'; 
+import { Router } from '@angular/router';
 
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -19,9 +20,10 @@ import { Blog } from '../shared/blog.model';
 })
 export class CreateBlogComponent implements OnInit {
 
-  constructor(private blogService: BlogService, private _formBuilder: FormBuilder) {}
+  constructor(private blogService: BlogService, private _formBuilder: FormBuilder, private router: Router) {}
 
   blogTemplate: Blog = {
+    '_id': '',
     'title' : '',
     'author': '',
     'comments': [],
@@ -73,6 +75,7 @@ export class CreateBlogComponent implements OnInit {
 
 
 onFormSubmit(){
+  this.blogTemplate._id ='' + Math.random()*100000;
   this.blogTemplate.title = this.firstFormGroup.value.title;
   this.blogTemplate.image = this.hero_image_url;
   this.blogTemplate.description = this.previewTemplate;
@@ -166,6 +169,8 @@ onFileSelected(event){
   
   onSaveBlog(){
     this.blogService.postBlog(this.blogTemplate);
+
+    this.router.navigate(['/home']);
   }
 }
 

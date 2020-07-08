@@ -1,8 +1,12 @@
-<img [src]="blog.image" class="card-img-top" [alt]="blog.title">
-<div class="card-body">
-    <h5 class="card-title">{{blog.title}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{blog.author}}</h6>
-    <p class="card-text" style="max-height: 200px; overflow: auto;"><quill-view-html [content]="blog.description"></quill-view-html></p>
-    <a class="card-link">Read More</a>
-    <a class="card-link">Another link</a>
-</div>
+<a [routerLink]="['/blogs', blog._id]">
+    <img [src]="blog.image" class="card-img" [alt]="blog.title">
+    <div class="card-img-overlay">
+        <h5 class="card-title h3">{{blog.title}}</h5>
+        <h6 class="card-subtitle mb-2">{{blog.author}}</h6>
+    </div>
+    <div class="card-body">
+        <p class="card-text" style="max-height: 200px; overflow: auto;"><quill-view-html [content]="blog.description"></quill-view-html></p>
+        <a class="card-link" [routerLink]="['/blogs', blog._id]">Read More</a>
+        <a class="card-link">Another link</a>
+    </div>
+</a>

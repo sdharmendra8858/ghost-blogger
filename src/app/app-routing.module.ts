@@ -13,7 +13,7 @@ const routes: Routes = [
     path: 'home', component: BlogListComponent
   },
   {
-    path: 'blog/:id', component: BlogDisplayComponent
+    path: 'blogs/:id', component: BlogDisplayComponent
   },
   {
     path: 'create-blog', component: CreateBlogComponent

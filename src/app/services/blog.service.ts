@@ -11,30 +11,35 @@ export class BlogService {
 
   blog: Blog[] = [
     {
+      '_id': '1111',
       'title': 'first blog',
       'author': 'ghost721',
       'description': 'Some quick example text to build on the card title and make up the bulk of the cards content.',
       'image': 'https://images.squarespace-cdn.com/content/v1/5a5906400abd0406785519dd/1552662149940-G6MMFW3JC2J61UBPROJ5/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/baelen.jpg?format=1500w',
       'comments': [
         {
+          '_id': '1110',
           'message': 'Good',
           'author': 'ghost101'
         }
       ],
       tags: []
     },{
+      '_id': '2222',
       'title': 'first blog',
       'author': 'ghost721',
       'description': 'Some quick example text to build on the card title and make up the bulk of the cards content.',
       'image': 'https://images.squarespace-cdn.com/content/v1/5a5906400abd0406785519dd/1552662149940-G6MMFW3JC2J61UBPROJ5/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/baelen.jpg?format=1500w',
       'comments': [
         {
+          '_id': '2220',
           'message': 'Good',
           'author': 'ghost101'
         }
       ],
       tags: []
     },{
+      '_id': '3333',
       'title': 'first blog',
       'author': 'ghost7210',
       'description': `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tincidunt orci. Nulla imperdiet justo sed dolor condimentum, vitae ornare leo volutpat. Curabitur ligula mi, pretium eget porttitor nec, cursus et dolor. Donec risus mi, tincidunt at fermentum porttitor, commodo rhoncus elit. In ac leo risus. Nam pretium tincidunt odio, sed dapibus magna. Vestibulum sit amet est id nisl varius tincidunt. Sed suscipit ultrices ante. Nam maximus fermentum mauris nec efficitur. Nulla condimentum aliquam nisi vitae tincidunt,
@@ -51,6 +56,7 @@ export class BlogService {
       'image': 'https://images.squarespace-cdn.com/content/v1/5a5906400abd0406785519dd/1552662149940-G6MMFW3JC2J61UBPROJ5/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/baelen.jpg?format=1500w',
       'comments': [
         {
+          '_id': '3330',
           'message': 'Good',
           'author': 'ghost101'
         }
