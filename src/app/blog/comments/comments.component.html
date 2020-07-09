@@ -1,1 +1,24 @@
-<p>comments works!</p>
+<mat-list>
+    <mat-list-item *ngFor="let comment of comments">
+        <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
+        <img mat-list-avatar [src]="comment.author.avatar" [alt]="comment.author.name">
+        <p mat-line>{{comment.author.name}}</p>
+        <p mat-line style="word-wrap: break-word; white-space: pre-wrap;">{{comment.message}}</p>
+    </mat-list-item>
+</mat-list>
+
+<div class="form_details mt-5 mb-5">
+    <form novalidate (ngSubmit)="onSubmit(commentForm)" #commentForm="ngForm">
+        Write Comments
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" ngModel name="name">
+        </div>
+        <br>
+        <div>
+            <label for="comment">Your Comment:</label>
+            <textarea type="text" class="form-control" ngModel name="message" required rows="5"></textarea>
+        </div>
+        <button class="btn btn-primary mt-3" type="submit" [disabled]="!commentForm.valid">Post</button>
+    </form>
+</div>

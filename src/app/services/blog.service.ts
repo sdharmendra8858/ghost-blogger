@@ -19,8 +19,39 @@ export class BlogService {
       'comments': [
         {
           '_id': '1110',
-          'message': 'Good',
-          'author': 'ghost101'
+          'message': 'Good 1',
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
+        },
+        {
+          '_id': '1112',
+          'message': 'Good 2',
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
+        },
+        {
+          '_id': '1113',
+          'message': 'Good 3',
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
+        },
+        {
+          '_id': '1114',
+          'message': 'Good 4',
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
         }
       ],
       tags: []
@@ -34,7 +65,11 @@ export class BlogService {
         {
           '_id': '2220',
           'message': 'Good',
-          'author': 'ghost101'
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
         }
       ],
       tags: []
@@ -58,7 +93,11 @@ export class BlogService {
         {
           '_id': '3330',
           'message': 'Good',
-          'author': 'ghost101'
+          'author': {
+            'name': 'ghost 1',
+            'email': 'test',
+            'avatar': './assets/images/pp3.jpg'
+          }
         }
       ],
       tags: []
@@ -70,8 +109,10 @@ export class BlogService {
     return this.blog.slice();
   }
 
-  getBlog(id: number){
-    return (this.blog[id]);
+  getBlog(id: String){
+    return (
+      this.getBlogs().filter(blog => blog._id === id)[0]
+    );
   }
 
   postBlog(blog: Blog){

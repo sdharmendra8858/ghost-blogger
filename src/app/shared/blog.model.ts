@@ -1,7 +1,9 @@
+import { User } from './user.model';
+
 export class Comment{
   _id: String;
   message: String;
-  author: String;
+  author: User;
 }
 
 export class Blog {

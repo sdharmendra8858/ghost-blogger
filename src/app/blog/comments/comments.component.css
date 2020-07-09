@@ -1,0 +1,9 @@
+.mat-list-icon{
+    border: 1.5px solid rgba(0, 0, 0, 0.68);
+    color: rgba(0, 0, 0, 0.68);
+}
+
+/* ::ng-deep .mat-list .mat-list-item .mat-line{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+} */

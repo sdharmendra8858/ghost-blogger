@@ -8,3 +8,8 @@
     width: 60vw;
     margin: 0 auto;
 }
+
+.comments_header{
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.6);
+}
