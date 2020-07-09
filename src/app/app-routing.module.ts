@@ -7,6 +7,10 @@ import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogDisplayComponent } from './blog/blog-display/blog-display.component';
 import { CreateBlogComponent } from './blog/create-blog/create-blog.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './profile/home/home.component';
+import { MyBlogComponent } from './profile/my-blog/my-blog.component';
+import { SecurityComponent } from './profile/security/security.component';
+import { OthersComponent } from './profile/others/others.component';
 
 
 const routes: Routes = [
@@ -20,7 +24,13 @@ const routes: Routes = [
     path: 'create-blog', component: CreateBlogComponent
   },
   {
-    path: 'users/me', component: ProfileComponent
+    path: 'users/me', component: ProfileComponent, children: [
+      {path: '', component: HomeComponent},
+      {path: 'home', redirectTo: ''},
+      {path: 'my-blog', component: MyBlogComponent},
+      {path: 'security', component: SecurityComponent},
+      {path: 'others', component: OthersComponent}
+    ]
   },
   {
     path: 'auth', component: AuthComponent

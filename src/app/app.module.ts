@@ -23,6 +23,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './profile/home/home.component';
+import { MyBlogComponent } from './profile/my-blog/my-blog.component';
+import { SecurityComponent } from './profile/security/security.component';
+import { OthersComponent } from './profile/others/others.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { ProfileComponent } from './profile/profile.component';
     ErrorPageComponent,
     BlogDetailComponent,
     CommentsComponent,
-    ProfileComponent
+    ProfileComponent,
+    HomeComponent,
+    MyBlogComponent,
+    SecurityComponent,
+    OthersComponent
   ],
   imports: [
     BrowserModule,
