@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatInputModule } from '@angular/material/input';
     AuthComponent,
     ErrorPageComponent,
     BlogDetailComponent,
-    CommentsComponent
+    CommentsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

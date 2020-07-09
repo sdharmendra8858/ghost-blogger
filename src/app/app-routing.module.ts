@@ -6,6 +6,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogDisplayComponent } from './blog/blog-display/blog-display.component';
 import { CreateBlogComponent } from './blog/create-blog/create-blog.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'create-blog', component: CreateBlogComponent
+  },
+  {
+    path: 'users/me', component: ProfileComponent
   },
   {
     path: 'auth', component: AuthComponent
