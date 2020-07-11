@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-blog.component.css']
 })
 export class MyBlogComponent implements OnInit {
+  items = [1,2,3]
 
   constructor() { }
 
