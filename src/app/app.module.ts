@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { QuillModule } from 'ngx-quill';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { HomeComponent } from './profile/home/home.component';
 import { MyBlogComponent } from './profile/my-blog/my-blog.component';
 import { SecurityComponent } from './profile/security/security.component';
 import { OthersComponent } from './profile/others/others.component';
+import { FollowersModelComponent } from './followers-model/followers-model.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -30,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { MatMenuModule } from '@angular/material/menu';
     HomeComponent,
     MyBlogComponent,
     SecurityComponent,
-    OthersComponent
+    OthersComponent,
+    FollowersModelComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +58,7 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     ReactiveFormsModule,
     QuillModule.forRoot(),
+    FontAwesomeModule,
     BrowserAnimationsModule,
     MatStepperModule,
     MatListModule,
@@ -64,7 +69,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     MatCardModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

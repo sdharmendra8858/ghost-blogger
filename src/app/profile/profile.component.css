@@ -61,8 +61,8 @@
 
 .list-group>a{
     cursor: pointer;
-} */
-/* 
+}
+
 body{
     background:#c02424;
     margin-top:20px;
@@ -442,12 +442,31 @@ button.btn-link {
     padding-right: 0;
     color: #9c9c9c;
 }
+*/
 
 .btn-info {
-    background-color: #2bb3c0;
-    border: none;
+    width: fit-content;
+    border-radius: 3px;
+    background-color: transparent;
+    border: transparent;
+    margin: 0.5rem;
 }
 
+fa-icon{
+    font-size: 2rem;
+}
+
+.follow_button{
+    background-color: #008080;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.follow_button:hover{
+    background-color: #005252;
+    color: #ffffff;
+}
+/*
 .btn-group,
 .btn-group-vertical {
     position: relative;

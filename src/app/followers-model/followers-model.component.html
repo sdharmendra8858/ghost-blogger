@@ -1,0 +1,12 @@
+List of <strong>{{action}}</strong>
+<hr>
+<mat-list>
+    <mat-list-item *ngFor="let item of list">
+            <!-- <a [routerLink]="['/users', item]" (click) ="closeDialog()"> -->
+                <img mat-list-avatar src="./assets/images/pp3.jpg" alt="">
+                <div mat-line>Username</div>
+                <div mat-line>{{item}}</div>
+                <button mat-raised-button color="primary">Unfollow</button>
+            <!-- </a> -->
+    </mat-list-item>
+</mat-list>

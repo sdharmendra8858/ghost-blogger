@@ -1,55 +1,3 @@
-<!-- <div class="mt-n5">
-    <div class="cover">
-        <img src="./assets/images/web.jpg" class="img-fluid background-image" alt="">
-    </div>
-    <div class="details">
-        <div class="profile-cover">
-            <img class="img-fluid" src="./assets/images/pp3.jpg" alt="">
-            <a href="#" class="change-profile-link">
-                <div class="change-profile">
-                    Change Profile
-                </div>
-            </a>
-        </div>
-        <div class="follow-info">
-            <div class="container">
-                <div class="row text-center text-light d-flex align-items-middle">
-                    <div class="col-md-3 col-sm-12 offset-2">
-                        <h4><strong>Blogs</strong></h4>
-                        <p class="h2">5</p>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <h4><strong>Followers</strong></h4>
-                        <p class="h2">12k</p>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <h4><strong>Following</strong></h4>
-                        <p class="h2">152</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-4 col-sm-12">
-                        <ul class="list-group">
-                            <a routerLink="home" routerLinkActive='active' class="list-group-item list-group-item-action">Home</a>
-                            <a routerLink="my-blog" routerLinkActive='active' class="list-group-item list-group-item-action">Blog</a>
-                            <a routerLink="security" routerLinkActive='active' class="list-group-item list-group-item-action">Security</a>
-                            <a routerLink="others" routerLinkActive='active' class="list-group-item list-group-item-action">Others</a>
-                        </ul>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="w-90 m-auto">
@@ -59,20 +7,24 @@
                 <h3 class="h3">Henry Foster</h3>
             </div>
             <div class="profile-cover__action bg--img" [ngStyle]="{'background': 'url(' + background_image + ') no-repeat'}" data-overlay="0.3">
-                <!-- <button class="btn btn-rounded btn-info">
-                    <i class="fa fa-plus"></i>
-                    <span>Follow</span>
+                <button class="btn-info follow_button">
+                    <span class="pl-3 pr-3">Follow</span>
                 </button>
-                <button class="btn btn-rounded btn-info">
-                    <i class="fa fa-comment"></i>
-                    <span>Message</span>
-                </button> -->
+                <button class="btn-info">
+                    <fa-icon [icon]="fafacebookF"></fa-icon>
+                </button>
+                <button class="btn-info">
+                    <fa-icon [icon]="faInstagram"></fa-icon>
+                </button>
+                <button class="btn-info">
+                    <fa-icon [icon]="faTwitter"></fa-icon>
+                </button>
             </div>
             <div class="profile-cover__info">
                 <ul class="nav">
-                    <li><strong>26</strong>Blogs</li>
-                    <li><strong>33</strong>Followers</li>
-                    <li><strong>136</strong>Following</li>
+                    <li><a style="cursor: pointer;"><strong>26</strong>Blogs</a></li>
+                    <li (click)="openFollowerModel('follower')"><a style="cursor: pointer;"><strong>33</strong>Followers</a></li>
+                    <li (click)="openFollowerModel('following')"><a style="cursor: pointer;"><strong>136</strong>Following</a></li>
                 </ul>
             </div>
         </div>
