@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -42,7 +43,7 @@ export class AuthComponent implements OnInit {
       }
   }
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -53,7 +54,8 @@ export class AuthComponent implements OnInit {
   }
 
   onLogin(loginData: NgForm){
-    console.log(loginData);
+    console.log(loginData.value);
+    this.authService.login(loginData.value);
   }
 
   onHidePassword(){
