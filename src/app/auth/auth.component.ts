@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -55,7 +56,10 @@ export class AuthComponent implements OnInit {
 
   onLogin(loginData: NgForm){
     console.log(loginData.value);
-    this.authService.login(loginData.value);
+    this.authService.login(loginData.value)
+    .subscribe(response => console.log(response), (error)=> console.log("Error", error)
+    
+    );
   }
 
   onHidePassword(){
@@ -63,7 +67,8 @@ export class AuthComponent implements OnInit {
   }
 
   onRegister(registerData: NgForm){
-    console.log(registerData);
+    console.log(registerData.value);
+    this.authService.signUp(registerData.value);
     
   }
 }
