@@ -1,7 +1,7 @@
 <mat-list>
     <mat-list-item *ngFor="let comment of comments">
         <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
-        <img mat-list-avatar [src]="comment.author.avatar" [alt]="comment.author.name">
+        <img mat-list-avatar [src]="'http://localhost:3000/users/'+comment.author._id+'/avatar'" [alt]="comment.author.name">
         <p mat-line>{{comment.author.name}}</p>
         <p mat-line style="word-wrap: break-word; white-space: pre-wrap;">{{comment.message}}</p>
     </mat-list-item>

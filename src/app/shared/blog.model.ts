@@ -1,12 +1,12 @@
 import { User } from './user.model';
 
-export class Comment{
+export interface Comment{
   _id: String;
   message: String;
   author: User;
 }
 
-export class Blog {
+export interface Blog {
   _id: String;
   title: String;
   image: String;

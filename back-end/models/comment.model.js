@@ -6,13 +6,6 @@ const comment = new mongoose.Schema({
         ref: 'User',
         required:true
     },
-    rating: {
-        type: Number,
-        max: 5,
-        default: 5,
-        min: 1,
-        required: true
-    },
     message: {
         type: String,
         trim: true

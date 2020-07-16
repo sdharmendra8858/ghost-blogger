@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BlogService } from 'src/app/services/blog.service';
-import { Blog } from 'src/app/shared/blog.model';
+import { BlogService, blog } from 'src/app/services/blog.service';
+// import { Blog } from 'src/app/shared/blog.model';
 
 @Component({
   selector: 'app-blog-list',
@@ -12,12 +12,14 @@ export class BlogListComponent implements OnInit {
 
   constructor(private blogService: BlogService) { }
 
-  lists: Blog[];
+  lists: blog[];
 
   ngOnInit(): void {
-    this.lists = this.blogService.getBlogs();
-    console.log(this.lists);
-    
+    this.blogService.getBlogs()
+    .subscribe(blogs => {
+      this.lists = blogs;
+    }, (error) => console.log(error)
+    );
   }
 
 }

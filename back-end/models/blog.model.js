@@ -22,7 +22,11 @@ const blogSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    comments: [Comment]
+    comments: [Comment],
+    image: {
+        type: String,
+        required: true
+    }
 },
 {
     timestamps: true
