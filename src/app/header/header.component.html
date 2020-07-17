@@ -20,7 +20,10 @@
                     <a class="nav-link" routerLink="users/me" routerLinkActive="active">Profile</a>
                 </li>
                 <li class="nav-item" *ngIf="isAuth">
-                    <a class="nav-link" (click)="onLogout()" routerLinkActive="active">LogOut</a>
+                    <a class="nav-link" (click)="onLogout()" style="cursor: pointer;" routerLinkActive="active">LogOut</a>
+                </li>
+                <li class="nav-item" *ngIf="isAuth">
+                    <a class="nav-link" (click)="onLogoutAll()" style="cursor: pointer;" routerLinkActive="active">LogOut All</a>
                 </li>
                 <li class="nav-item" *ngIf="!isAuth">
                     <a class="nav-link" routerLink="auth" routerLinkActive="active">Login</a>

@@ -19,8 +19,7 @@ export interface authResponse {
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-
-  authToken = new Subject<String>();
+  authToken: String;
   loggedUser: Users;
   isAuthenticate = new Subject<Boolean>();
 
@@ -30,7 +29,7 @@ export class AuthService {
     return this.http.post<authResponse>(url, {email, password})
       .pipe(
         tap(resData => {
-          this.setLoginData(resData.user, resData.token);
+          this.setUserData(resData.user, resData.token);
           this.isAuthenticate.next(true);
         }),
         catchError(this.handleError)
@@ -44,24 +43,49 @@ export class AuthService {
 
     this.http.post<authResponse>(url, signupData)
     .subscribe(response => {
-      this.setLoginData(response.user, response.token);
+      this.setUserData(response.user, response.token);
       this.isAuthenticate.next(true);
     })
     
   }
 
-  setLoginData(user, token){
-    this.authToken.next(token);
+  logout(){
+    const url = environment.url + '/users/logout';
+    return this.http.post(url, "").pipe(
+      tap(response => this.removeUserData()),
+      catchError(this.handleError)
+    );
+  }
+
+  logoutAll(){
+    const url = environment.url + '/users/logoutAll';
+    return this.http.post(url, "").pipe(
+      tap(response => this.removeUserData()),
+      catchError(this.handleError)
+    );
+  }
+
+  setUserData(user, token){
     this.loggedUser = user;
+    this.authToken = token;
     this.storeToken(token)
   }
 
+  removeUserData(){
+    this.loggedUser = null;
+    this.removeToken();
+  }
+
   getAuthToken(){
-    return localStorage.getItem('token');
+    return this.authToken;
   }
 
   storeToken(token){
     localStorage.setItem('token', token);
+  }
+
+  removeToken(){
+    localStorage.removeItem('token');
   }
 
   private handleError(errorRes: HttpErrorResponse){
