@@ -17,7 +17,6 @@ export class CommentsComponent implements OnInit {
   constructor(private blogService: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.comments);
     
     this.route.paramMap.subscribe(params => this.blogId = params.get('id'));
     

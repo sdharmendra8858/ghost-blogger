@@ -1,10 +1,10 @@
 <div class="container">
     <ul class="nav nav-tabs mb-5">
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active': loginTrue}" style="cursor: pointer;" (click)= "loginStatus()">Login</a>
+          <a class="nav-link" [ngClass]="{'active': loginTrue}" style="cursor: pointer;" (click)= "loginTrue=!loginTrue">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'active': !loginTrue}" style="cursor: pointer;" (click)= "loginStatus()">Register</a>
+          <a class="nav-link" [ngClass]="{'active': !loginTrue}" style="cursor: pointer;" (click)= "loginTrue=!loginTrue">Register</a>
         </li>
     </ul>
     
@@ -28,17 +28,22 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input 
-                    class="form-control" 
-                    id="password" 
-                    ngModel 
-                    type="password" 
-                    name="password"
-                    required
-                    minlength="6"
-                    [(ngModel)] = login.password
-                    #password="ngModel"
-                />
+                <div class="input-group">
+                    <input 
+                        class="form-control" 
+                        id="password" 
+                        ngModel 
+                        [type]="hidePassword ? 'password' : 'text'"
+                        name="password"
+                        required
+                        minlength="6"
+                        [(ngModel)] = login.password
+                        #password="ngModel"
+                    />
+                    <div class="input-group-append">
+                        <div class="input-group-text" style="cursor: pointer;" (click) = "hidePassword=!hidePassword"><i [ngClass]="hidePassword? 'fa fa-eye': 'fa fa-eye-slash text-primary'"></i></div>
+                    </div>
+                </div>
                 <span class="form-text text-danger" *ngIf="password.touched && password.errors?.required">{{errorMsg.password.required}}</span>
                 <span class="form-text text-danger" *ngIf="password.touched && password.errors?.minlength">{{errorMsg.password.minlength}}</span>
             </div>
@@ -136,7 +141,7 @@
                         [(ngModel)]=register.password
                         #password = 'ngModel'>
                         <div class="input-group-append">
-                            <div class="input-group-text" style="cursor: pointer;" (click) = "onHidePassword()"><i [ngClass]="hidePassword? 'fa fa-eye': 'fa fa-eye-slash text-primary'"></i></div>
+                            <div class="input-group-text" style="cursor: pointer;" (click) = "hidePassword=!hidePassword"><i [ngClass]="hidePassword? 'fa fa-eye': 'fa fa-eye-slash text-primary'"></i></div>
                         </div>
                     </div>
                     <span class="form-text text-danger" *ngIf="password.touched && password.errors?.required">{{errorMsg.password.required}}</span>

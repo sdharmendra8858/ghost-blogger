@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -44,31 +45,23 @@ export class AuthComponent implements OnInit {
       }
   }
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private route: Router) { }
 
   ngOnInit(): void {
 
-  }
-
-  loginStatus(){
-    this.loginTrue = !this.loginTrue;
   }
 
   onLogin(loginData: NgForm){
     console.log(loginData.value);
     this.authService.login(loginData.value)
     .subscribe(response => console.log(response), (error)=> console.log("Error", error)
-    
     );
-  }
-
-  onHidePassword(){
-    this.hidePassword = !this.hidePassword;
+    this.route.navigate(['/home']);
   }
 
   onRegister(registerData: NgForm){
     console.log(registerData.value);
     this.authService.signUp(registerData.value);
-    
+    this.route.navigate(['/home']);
   }
 }

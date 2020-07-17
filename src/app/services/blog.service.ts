@@ -35,6 +35,11 @@ getBlogs(){
    return this.http.get<blog[]>(this.url).pipe(catchError(this.handleError));
 }
 
+postBlog(data){
+  console.log(data);
+  
+}
+
 getBlog(id: String){
   const newUrl = this.url + '/'+id;
   return this.http.get<blog>(newUrl).pipe(catchError(this.handleError));

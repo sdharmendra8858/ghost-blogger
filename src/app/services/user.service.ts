@@ -7,7 +7,7 @@ export interface user {
   email: String;
   gender: String;
   dateofBirth: Date;
-  avatar: Buffer;
+  avatar: String;
   createdAt: Date;
 }
 
