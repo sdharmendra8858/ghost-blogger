@@ -11,6 +11,7 @@ import { HomeComponent } from './profile/home/home.component';
 import { MyBlogComponent } from './profile/my-blog/my-blog.component';
 import { SecurityComponent } from './profile/security/security.component';
 import { OthersComponent } from './profile/others/others.component';
+import { AuthGuard } from './services/auth.guard';
 
 
 const routes: Routes = [
@@ -21,10 +22,10 @@ const routes: Routes = [
     path: 'blogs/:id', component: BlogDisplayComponent
   },
   {
-    path: 'create-blog', component: CreateBlogComponent
+    path: 'create-blog', component: CreateBlogComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'users/me', component: ProfileComponent, children: [
+    path: 'users/me', component: ProfileComponent, canActivate: [AuthGuard], children: [
       {path: '', component: HomeComponent},
       {path: 'home', redirectTo: ''},
       {path: 'my-blog', component: MyBlogComponent},

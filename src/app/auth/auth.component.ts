@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -13,6 +13,7 @@ export class AuthComponent implements OnInit {
 
   loginTrue: boolean = true;
   hidePassword: boolean = true;
+  returnUrl: string = 'home'
 
   login = {email: "", password: ""};
   register = {
@@ -45,23 +46,31 @@ export class AuthComponent implements OnInit {
       }
   }
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
+    this.route.queryParamMap.subscribe(params => {
+      var urls = params.getAll('retUrl');
+      var newUrl = "";
+      urls.map(url => newUrl += url + '/');
+      newUrl = newUrl.substring(0,newUrl.length-1);
+      this.returnUrl = newUrl;
+      
+    });
   }
 
   onLogin(loginData: NgForm){
-    console.log(loginData.value);
     this.authService.login(loginData.value)
-    .subscribe(response => console.log(response), (error)=> console.log("Error", error)
+    .subscribe(response => {
+      this.router.navigateByUrl(this.returnUrl);
+      console.log(response)
+    }, (error)=> console.log("Error", error)
     );
-    this.route.navigate(['/home']);
   }
 
   onRegister(registerData: NgForm){
     console.log(registerData.value);
     this.authService.signUp(registerData.value);
-    this.route.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 }

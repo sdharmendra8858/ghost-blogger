@@ -21,6 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
   authToken: String;
   loggedUser: Users;
+  isLoggedIn: Boolean = false;
   isAuthenticate = new Subject<Boolean>();
 
   login({email, password}){
@@ -30,6 +31,7 @@ export class AuthService {
       .pipe(
         tap(resData => {
           this.setUserData(resData.user, resData.token);
+          this.isLoggedIn = true;
           this.isAuthenticate.next(true);
         }),
         catchError(this.handleError)
@@ -44,6 +46,7 @@ export class AuthService {
     this.http.post<authResponse>(url, signupData)
     .subscribe(response => {
       this.setUserData(response.user, response.token);
+      this.isLoggedIn = true;
       this.isAuthenticate.next(true);
     })
     
@@ -52,7 +55,10 @@ export class AuthService {
   logout(){
     const url = environment.url + '/users/logout';
     return this.http.post(url, "").pipe(
-      tap(response => this.removeUserData()),
+      tap(response => {
+        this.removeUserData();
+        this.isLoggedIn = false;
+      }),
       catchError(this.handleError)
     );
   }
@@ -60,9 +66,16 @@ export class AuthService {
   logoutAll(){
     const url = environment.url + '/users/logoutAll';
     return this.http.post(url, "").pipe(
-      tap(response => this.removeUserData()),
+      tap(response => {
+        this.removeUserData();
+        this.isLoggedIn = false;
+      }),
       catchError(this.handleError)
     );
+  }
+
+  isUserLoggedIn():Boolean{
+    return this.isLoggedIn;
   }
 
   setUserData(user, token){

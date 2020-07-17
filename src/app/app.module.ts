@@ -22,6 +22,7 @@ import { SecurityComponent } from './profile/security/security.component';
 import { OthersComponent } from './profile/others/others.component';
 import { FollowersModelComponent } from './followers-model/followers-model.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AuthGuard } from './services/auth.guard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -79,7 +80,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
