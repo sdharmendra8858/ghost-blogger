@@ -3,8 +3,8 @@
     <div class="w-90 m-auto">
         <div class="panel profile-cover">
             <div class="profile-cover__img">
-                <img src="../assets/images/pp3.jpg" alt="" />
-                <h3 class="h3">Henry Foster</h3>
+                <img [src]="userProfile.avatar" [alt]="userProfile.name" />
+                <h3 class="h3">{{userProfile.name}}</h3>
             </div>
             <div class="profile-cover__action bg--img" [ngStyle]="{'background': 'url(' + background_image + ') no-repeat'}" data-overlay="0.3">
                 <button class="btn-info follow_button">

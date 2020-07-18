@@ -3,22 +3,22 @@
 
 <div class="container">
     <div>
-        <p><strong>Name: </strong>Dharmendra Verma</p>
+        <p><strong>Name: </strong>{{profile.name}}</p>
     </div>
     <div>
-        <p><strong>Username: </strong>Ghost721</p>
+        <p><strong>Username: </strong>unkown username</p>
     </div>
     <div>
-        <p><strong>Email: </strong>test@test.test</p>
+        <p><strong>Email: </strong>{{profile.email}}</p>
     </div>
     <div>
         <p><strong>Website: </strong>www.test.co.in</p>
     </div>
     <div>
-        <p><strong>Date of Birth: </strong>yyyy-mm-dd</p>
+        <p><strong>Date of Birth: </strong>{{profile.dateofBirth | date: 'yyyy-MM-dd'}}</p>
     </div>
     <div>
-        <p><strong>Gender: </strong>Male</p>
+        <p><strong>Gender: </strong>{{profile.gender}}</p>
     </div>
     <div>
         <p><strong>Bio: </strong>more than fine</p>
