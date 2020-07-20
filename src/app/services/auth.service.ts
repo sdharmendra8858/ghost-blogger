@@ -75,6 +75,10 @@ export class AuthService {
   }
 
   isUserLoggedIn():Boolean{
+    if(this.getAuthToken()){
+      this.isAuthenticate.next(true);
+      return true;
+    }
     return this.isLoggedIn;
   }
 
@@ -86,10 +90,14 @@ export class AuthService {
 
   removeUserData(){
     this.loggedUser = null;
+    this.isAuthenticate.next(false);
     this.removeToken();
   }
 
   getAuthToken(){
+    if(!this.authToken){
+      this.authToken = localStorage.getItem('token');
+    }
     return this.authToken;
   }
 

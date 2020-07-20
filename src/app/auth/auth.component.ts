@@ -3,6 +3,9 @@ import { NgForm } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { user } from '../services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -46,7 +49,7 @@ export class AuthComponent implements OnInit {
       }
   }
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
